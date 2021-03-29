@@ -8,13 +8,8 @@ class App extends React.Component {
     super()
     this.state = {
       name: 'Luthfi Muhaimin',
-      users : [],
-      showForm: false
+      users : []
     }
-  }
-
-  printName = () => {
-    console.log(this.state.user.name)
   }
 
   fetchUser = () => {
@@ -57,16 +52,16 @@ class App extends React.Component {
         </thead>
         <tbody>
           {
-            users.map(user => {
+            users.map((user, index) => {
               return (
-                <UserList user={user} key={user.id}></UserList>
+                <UserList user={user} key={index}></UserList>
               )
             })
           }
         </tbody>
       </table><br/><br/>
 
-      <FormUser addUser={this.addUser}></FormUser>
+      <FormUser addUser={this.addUser} users={this.state.users}></FormUser>
     </div>
     )
   }
