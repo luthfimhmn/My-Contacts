@@ -1,38 +1,31 @@
 import './App.css';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import User from './components/User'
 import FormUser from './components/FormUser'
+import Navbar from './components/NavBar'
+import useFetch from './helpers/hooks/useFetch';
 
 function App () {
+  const {data: users, setData: setUsers} = useFetch('https://reqres.in/api/users')
   const [name] = useState('Luthfi')
-  const [users, setUsers] = useState([])
-
-  function fetchUsers () {
-    fetch('https://reqres.in/api/users')
-      .then(res => res.json())
-      .then(users => setUsers(users.data))
-      .catch(err => console.log(err))
-  }
 
   function addUser (user) {
     setUsers(users.concat(user))
   }
 
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
   return (
     <div className="container">
-      <h1>Fetch User by {name}</h1>
+      <Navbar name={name}/>
 
       <h2>List of User</h2>
       <table className="table">
         <thead>
           <tr>
+            <th>No</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
+            <th>Photo</th>
           </tr>
         </thead>
         <tbody>

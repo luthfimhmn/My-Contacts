@@ -4,15 +4,22 @@ function UserForm (props) {
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
+  const [avatar, setAvatar] = useState('')
 
 
   function formOnSubmit (event) {
     event.preventDefault();
-    props.addUser({first_name, last_name, email})
+    props.addUser({first_name, last_name, email, avatar})
+    setFirst_name('')
+    setLast_name('')
+    setEmail('')
+    setAvatar('')
   }
 
   return (
-    <form onSubmit={e => formOnSubmit(e)}>
+    <>
+      <h1>Add User Form</h1>
+      <form onSubmit={e => formOnSubmit(e)}>
       <label htmlFor="first_name">First Name :</label><br/>
       <input
         id="name"
@@ -41,8 +48,18 @@ function UserForm (props) {
         onChange={e => setEmail(e.target.value)}
       /><br/>
 
-      <button>submit</button>
-    </form>
+      <label htmlFor="avatar">Avatar Url :</label><br/>
+      <input
+        id="avatar"
+        type="text"
+        name="avatar"
+        value={avatar}
+        onChange={e => setAvatar(e.target.value)}
+      /><br/><br/>
+
+      <button className="btn btn-primary">submit</button>
+      </form>
+    </>
   )
 }
 
