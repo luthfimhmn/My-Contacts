@@ -1,45 +1,30 @@
 import './App.css';
-import React from 'react'
-import UserList from './components/UserList'
+import React, { useEffect, useState } from 'react'
+import User from './components/User'
 import FormUser from './components/FormUser'
 
-class App extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      name: 'Luthfi Muhaimin',
-      users : []
-    }
-  }
+function App () {
+  const [name] = useState('Luthfi')
+  const [users, setUsers] = useState([])
 
-  fetchUser = () => {
+  function fetchUsers () {
     fetch('https://reqres.in/api/users')
       .then(res => res.json())
-      .then(res => {
-        this.setState({
-          users: res.data
-        })
-      })
+      .then(users => setUsers(users.data))
       .catch(err => console.log(err))
   }
 
-  addUser = (user) => {
-    let newUsersData = this.state.users.concat(user)
-    this.setState({
-      ...this.state,
-      users: newUsersData
-    })
+  function addUser (user) {
+    setUsers(users.concat(user))
   }
 
-  componentDidMount () {
-    this.fetchUser()
-  }
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
-  render () {
-    const { users } = this.state
-    return (
+  return (
     <div className="container">
-      <h1>Fetch User by {this.state.name}</h1>
+      <h1>Fetch User by {name}</h1>
 
       <h2>List of User</h2>
       <table className="table">
@@ -54,17 +39,20 @@ class App extends React.Component {
           {
             users.map((user, index) => {
               return (
-                <UserList user={user} key={index}></UserList>
+                <User
+                  user={user}
+                  index={index}
+                  key={user.id}>
+                </User>
               )
             })
           }
         </tbody>
       </table><br/><br/>
 
-      <FormUser addUser={this.addUser} users={this.state.users}></FormUser>
+      <FormUser addUser={addUser} users={users}></FormUser>
     </div>
-    )
-  }
+  )
 }
 
 export default App;
