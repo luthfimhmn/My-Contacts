@@ -1,9 +1,11 @@
 import './App.css';
-import React, { useState } from 'react'
-import Navbar from './components/NavBar'
-import ContactDetail from './pages/ContactDetail'
-import Home from './pages/Home'
-import PageLogin from './pages/Login'
+import {
+  Home,
+  PageLogin,
+  ContactDetail,
+  About
+} from './pages/'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,12 +16,11 @@ function App () {
 
   return (
     <>
-      <Navbar/>
-      <h1>Login Page</h1>
-
-
       <Router>
       <Switch>
+        <Route path='/about'>
+          <About/>
+        </Route>
         <Route path='/details/:id'>
           <ContactDetail/>
         </Route>

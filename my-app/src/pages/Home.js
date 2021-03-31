@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import User from '../components/User'
 import FormUser from '../components/FormUser'
 import useFetch from '../helpers/hooks/useFetch';
@@ -7,7 +7,8 @@ import Navbar from '../components/NavBar'
 
 function Home () {
   const {data: users, setData: setUsers} = useFetch('https://reqres.in/api/users')
-  const [name] = useState('Luthfi')
+  const dispatch = useDispatch();
+  dispatch({ type: 'contacts/setContacts', payload: users})
 
   function addUser (user) {
     setUsers(users.concat(user))
@@ -15,7 +16,7 @@ function Home () {
 
   return (
     <div className="container">
-      <Navbar name={name}/>
+      <Navbar/>
 
       <h2>List of User</h2>
       <table className="table">
@@ -26,6 +27,7 @@ function Home () {
             <th>Last Name</th>
             <th>Email</th>
             <th>Photo</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>

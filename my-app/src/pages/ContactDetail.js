@@ -11,7 +11,7 @@ function ContactDetail () {
       <h1>Contact Detail Page</h1>
       <h2>{id}</h2>
       <h3>{ `${user.first_name} ${user.last_name}`}</h3>
-      <img src={user.avatar}/>
+      <img src={user.avatar} alt='avatar'/>
     </>
   )
 }
