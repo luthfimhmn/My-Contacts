@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/NavBar'
 import { useDispatch, useSelector } from 'react-redux';
 
 function AddUser () {
-  // const {data: users} = useFetch('https://reqres.in/api/users')
-  const [id, setId] = useState('')
+  const [id, setId] = useState(0)
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
   const [avatar, setAvatar] = useState('')
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts)
-  // dispatch({type: 'contacts/setContacts', payload: users})
+
+  useEffect(() => {
+    setId(contacts[contacts.length -1].id + 1)
+  }, [contacts])
 
   function formOnSubmit (event) {
     event.preventDefault();
-    setId(+contacts[contacts.length - 1].id + 1)
+    // console.log(contacts[contacts.length -1].id +1);
+    // setId(+contacts[contacts.length - 1].id + 1)
+    // console.log(id,' ini id');
     // props.addUser({id, first_name, last_name, email, avatar})
     dispatch({ type: 'contacts/addContact', payload: {id, first_name, last_name, email, avatar}})
     setFirst_name('')

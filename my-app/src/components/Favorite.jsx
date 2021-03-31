@@ -17,7 +17,7 @@ function Favorite (props) {
           <img src={props.favorite.avatar} alt=""/>
         </td>
         <td>
-          <button onClick={() => removeFavorite(props.id)} className="btn btn-danger">Remove</button>
+          <button onClick={() => removeFavorite(props.favorite.id)} className="btn btn-danger">Remove</button>
         </td>
       </tr>
     </>
