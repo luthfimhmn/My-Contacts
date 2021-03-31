@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from '../components/NavBar'
 import { useParams } from 'react-router-dom'
 import useFetch from '../helpers/hooks/useFetch'
 
@@ -8,10 +9,12 @@ function ContactDetail () {
 
   return (
     <>
-      <h1>Contact Detail Page</h1>
-      <h2>{id}</h2>
-      <h3>{ `${user.first_name} ${user.last_name}`}</h3>
-      <img src={user.avatar} alt='avatar'/>
+      <Navbar/>
+      <div className="container center">
+        <h1>{ `${user.first_name} ${user.last_name}`}</h1>
+        <h3>Email : {user.email}</h3>
+        <img src={user.avatar} alt='avatar'/>
+      </div>
     </>
   )
 }

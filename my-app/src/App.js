@@ -1,9 +1,12 @@
+import {Suspense, lazy} from 'react';
 import './App.css';
 import {
   Home,
   PageLogin,
   ContactDetail,
-  About
+  // About,
+  Favorites,
+  AddUser
 } from './pages/'
 
 import {
@@ -12,15 +15,22 @@ import {
   Route
 } from 'react-router-dom'
 
+const About = lazy(() => import('./pages/About'));
+
 function App () {
 
   return (
     <>
       <Router>
       <Switch>
-        <Route path='/about'>
-          <About/>
+        <Suspense fallback={<div>Loading..</div>}>
+        <Route exact path='/adduser'>
+          <AddUser/>
         </Route>
+        <Route exact path='/favorites'>
+          <Favorites/>
+        </Route>
+        <Route path='/about' component={About}/>
         <Route path='/details/:id'>
           <ContactDetail/>
         </Route>
@@ -30,6 +40,7 @@ function App () {
         <Route exact path='/'>
           <Home/>
         </Route>
+        </Suspense>
       </Switch>
     </Router>
   </>

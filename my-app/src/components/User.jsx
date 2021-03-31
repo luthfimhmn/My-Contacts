@@ -1,16 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 
 function User (props) {
+  const history = useHistory();
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch();
 
-  function addToFavorite (id) {
-    dispatch({type: 'favorites/addFavorite', payload: id})
+  function addToFavorite (user) {
+    if(favorites.some(favorite => favorite.id === user.id)){
+      return console.log('fail');
+    }
+    dispatch({type: 'favorites/addFavorite', payload: user})
+  }
+
+  function toDetail (id) {
+    history.push(`/details/${id}`)
   }
 
   useEffect(()=> {
-    console.log('hehe');
   }, [favorites])
 
   return (
@@ -24,9 +32,9 @@ function User (props) {
         <img src={props.user.avatar} alt=""/>
       </td>
       <td>
+        <button onClick={() => addToFavorite(props.user)} className="btn btn-primary">Favorite</button>
+        <button onClick={() => toDetail(props.user.id)} className="btn btn-primary">Detail</button>
         <button className="btn btn-danger">Delete</button>
-        <button onClick={() => addToFavorite(props.id)} className="btn btn-primary">Favorite</button>
-        {JSON.stringify(favorites)}
       </td>
     </tr>
 
