@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import useFetch from '../helpers/hooks/useFetch';
 
 function UserForm (props) {
+  const {data: users} = useFetch('https://reqres.in/api/users')
+  const [id, setId] = useState('')
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
@@ -9,7 +12,8 @@ function UserForm (props) {
 
   function formOnSubmit (event) {
     event.preventDefault();
-    props.addUser({first_name, last_name, email, avatar})
+    setId(+users[users.length - 1].id + 1)
+    props.addUser({id, first_name, last_name, email, avatar})
     setFirst_name('')
     setLast_name('')
     setEmail('')
