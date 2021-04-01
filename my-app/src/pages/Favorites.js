@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
-import Favorite from '../components/Favorite'
+import User from '../components/User'
 import Navbar from '../components/NavBar'
 
 function Favorites () {
-
-  const favorites = useSelector(state => state.favorites)
+  const favorites = useSelector(state => state.favorites.data)
   return (
     <>
     <Navbar/>
@@ -24,12 +23,12 @@ function Favorites () {
       {
         favorites.map((favorite, index) => {
           return (
-            <Favorite
+            <User
               favorite={favorite}
               index={index}
               key={favorite.id}
             >
-            </Favorite>
+            </User>
           )
         })
       }

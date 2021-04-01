@@ -5,9 +5,8 @@ function Navbar () {
   return (
     <nav className="navbar sticky-top navbar-light shadow bg-light">
       <Link to='/'><h3>My Contacts</h3></Link>
-        <Link to='/adduser'>Add User</Link>
-        <Link to='/favorites'>Favorites</Link>
-        <Link to='/About'>About</Link>
+      <Link to='/favorites'>Favorites</Link>
+      <Link to='/About'>About</Link>
     </nav>
   )
 }

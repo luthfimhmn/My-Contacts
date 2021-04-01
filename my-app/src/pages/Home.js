@@ -1,20 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import User from '../components/User'
-import useFetch from '../helpers/hooks/useFetch';
 import Navbar from '../components/NavBar'
 import { useEffect } from 'react';
+import { setContactsAsync } from '../store/actions/contacts';
 
 
 function Home () {
+  const contacts = useSelector(state => state.contacts.data)
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts)
-  const {data: users} = useFetch('https://reqres.in/api/users')
-  dispatch({ type: 'contacts/setContacts', payload: users})
-
 
   useEffect(() => {
-
-  }, [contacts.length])
+    dispatch(setContactsAsync())
+  }, [])
   return (
     <>
       <Navbar/>
@@ -39,7 +36,9 @@ function Home () {
                   <User
                     user={user}
                     index={index}
-                    key={user.id}>
+                    key={user.id}
+                    category='contacts'
+                    >
                   </User>
                 )
               })
