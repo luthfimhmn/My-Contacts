@@ -1,4 +1,3 @@
-
 // action creator
 export function setContacts (payload) {
   return {
@@ -8,12 +7,15 @@ export function setContacts (payload) {
 }
 
 export function addContact (payload) {
-
+  return {
+    type: 'contacts/addContact',
+    payload
+  }
 }
 
-export function setContactsAsync () {
+export function setContactsAsync (url) {
   return (dispatch) => {
-    fetch('https://reqres.in/api/users')
+    fetch(url)
       .then(res => res.json())
       .then(contacts => {
         dispatch(setContacts(contacts.data))

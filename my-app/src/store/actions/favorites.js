@@ -4,11 +4,3 @@ export function addFavorite (payload) {
     payload
   }
 }
-
-// export function addFavoriteAsync () {
-//   // return (dispatch, state) => {
-//   //   if(state.some(favorite => favorite.id === payload.id)){
-//   //     return console.log('fail');
-//   //   }
-//   // }
-// }

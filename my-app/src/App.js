@@ -1,10 +1,9 @@
-import {Suspense, lazy} from 'react';
+import {Suspense, lazy, useEffect} from 'react';
 import './App.css';
 import {
   Home,
   PageLogin,
   ContactDetail,
-  // About,
   Favorites,
   AddUser
 } from './pages/'
@@ -14,10 +13,18 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { setContactsAsync } from './store/actions/contacts';
 
 const About = lazy(() => import('./pages/About'));
 
 function App () {
+  const url = 'https://reqres.in/api/users'
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setContactsAsync(url))
+  }, [url, dispatch])
 
   return (
     <>

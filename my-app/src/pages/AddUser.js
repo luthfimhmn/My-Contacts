@@ -1,27 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/NavBar'
 import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../store/actions/contacts';
 
 function AddUser () {
-  const [id, setId] = useState(0)
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
   const [avatar, setAvatar] = useState('')
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts)
+  const contacts = useSelector(state => state.contacts.data)
 
-  useEffect(() => {
-    setId(contacts[contacts.length -1].id + 1)
-  }, [contacts])
+  function nextUserId(users) {
+    const maxId = users.reduce((maxId, user) => Math.max(user.id, maxId), -1)
+    return maxId + 1
+  }
 
   function formOnSubmit (event) {
     event.preventDefault();
-    // console.log(contacts[contacts.length -1].id +1);
-    // setId(+contacts[contacts.length - 1].id + 1)
-    // console.log(id,' ini id');
-    // props.addUser({id, first_name, last_name, email, avatar})
-    dispatch({ type: 'contacts/addContact', payload: {id, first_name, last_name, email, avatar}})
+    const payload  = {
+      id: nextUserId(contacts),
+      first_name,
+      last_name,
+      email,
+      avatar
+    }
+    dispatch(addContact(payload))
     setFirst_name('')
     setLast_name('')
     setEmail('')

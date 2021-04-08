@@ -1,17 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import User from '../components/User'
 import Navbar from '../components/NavBar'
-import { useEffect } from 'react';
-import { setContactsAsync } from '../store/actions/contacts';
 
 
 function Home () {
   const contacts = useSelector(state => state.contacts.data)
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setContactsAsync())
-  }, [])
   return (
     <>
       <Navbar/>
